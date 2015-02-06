@@ -9,9 +9,11 @@ int main() {
     char* w;
     int i;
     table_langue tab_proba;
+    int faux, total;
 
     // 1ère partie : construction des tableaux de proba de l'alphabet, selon le corpus
-    tab_proba = init_tab_langue();
+    tab_proba = init_tab_lettre_langue();
+    afficherTab(tab_proba);
 
     // 2ème partie : entrée des mots à tester
     do {
@@ -25,14 +27,14 @@ int main() {
             scanf("%s", w);
             p_langue_mot(w, res);
             for (i=0; i<NB_LANGUES; i++) { // affichage de P(l/w)
-                printf("\t P(%s / %s) = %f \n", nom_langue(i), w, res[i]);
+//////                printf("\t P(%s / %s) = %f \n", nom_langue(i), w, res[i]);
             }
         } else if (c == 'a') {
             printf("Saisir le mot :\n");
             scanf("%s", w);
         	p_mot_langue(w, res);
             for (i=0; i<NB_LANGUES; i++) { // affichage de P(w/l)
-                printf("\t P(%s / %s) = %f \n", w, nom_langue(i), res[i]);
+//////                printf("\t P(%s / %s) = %f \n", w, nom_langue(i), res[i]);
             }
         }
         

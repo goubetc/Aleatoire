@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
 #include <dirent.h>
-#include <unistd.h>
 #include <errno.h>
 #include "lettre.h"
 
@@ -160,15 +158,15 @@ table_langue init_tab_lettre_langue() {
 				
 		// on remplie P(l|wi)
 		
-		double PL = 1/tab.nb_langues;
-		double Pwi = 1/26;
+		double PL = tab.nb_langues;
+		double Pwi = 26;
 		
 		for (i=0; i<26; i++){
 
 			for (j=0; j<tab.nb_langues; j++) {
-					printf("là\n");
-				printf("%f \n",(tab.tab_lettre_langue[i][j] * PL) / Pwi);
-				tab.tab_langue_lettre[i][j] = (tab.tab_lettre_langue[i][j] * PL) / Pwi; 
+
+				//printf("%f \n",(tab.tab_lettre_langue[i][j] * PL) / Pwi);
+				tab.tab_langue_lettre[i][j] = (tab.tab_lettre_langue[i][j]  * Pwi) / PL; 
 			}
 		}
 		

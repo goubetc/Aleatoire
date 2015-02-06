@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 
 // Définitions des constantes
 #define NB_LANGUES 4
@@ -6,15 +6,20 @@
 typedef enum {DUTCH,ENGLISH,FRENCH,ITALIAN} langue;
 
 typedef struct {
-	int **tab_langue_lettre; // contient les p(L / wi) ou p(wi / L)
+	double **tab_lettre_langue; // contient les p(wi / L)
+	double **tab_langue_lettre; // contient les p(L / wi)
 	int nb_langues;
-	// char **indice_langue;
+	char **indice_langue;
 	} table_langue;
 
 //table_langue init_tab_langue_lettre();
 
 table_langue init_tab_lettre_langue();
 
-//char *nom_langue(int l);
+double p_lettre_langue(char l, int langue, table_langue tab);
+
+double p_langue_lettre(char l, int langue, table_langue tab);
+
+char *nom_langue(int l, table_langue tab);
 
 void afficherTab(table_langue tab);

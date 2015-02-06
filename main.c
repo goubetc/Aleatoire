@@ -1,8 +1,14 @@
-#include <stdio.h>
+#include "lettre.h"
 
-int main(void)
-{
-    printf("Hello World!\n");
-    return 0;
+
+
+int main() {
+	table_langue tab;
+	//afficherTab(tab);
+	
+	tab = init_tab_lettre_langue();
+	afficherTab(tab);
+
+	return 0;
+
 }
-

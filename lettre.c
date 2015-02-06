@@ -85,6 +85,13 @@ void afficherTab(table_langue tab){
 		}
 		printf("\n");
 	}
+	printf("\n");
+	for (j=0; j<tab.nb_langues; j++){
+		for (i= 0; i<26; i++) {
+			printf("%f, ", tab.tab_langue_lettre[i][j]);
+		}
+		printf("\n");
+	}
 }
 
 table_langue init_tab_lettre_langue() {
@@ -160,11 +167,10 @@ table_langue init_tab_lettre_langue() {
 
 			for (j=0; j<tab.nb_langues; j++) {
 					printf("là\n");
-			printf("i=%d, j=%d \n",i,j);
+				printf("%f \n",(tab.tab_lettre_langue[i][j] * PL) / Pwi);
 				tab.tab_langue_lettre[i][j] = (tab.tab_lettre_langue[i][j] * PL) / Pwi; 
 			}
 		}
-				printf("ici\n");
 		
 		
 	}

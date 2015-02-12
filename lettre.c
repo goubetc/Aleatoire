@@ -94,7 +94,7 @@ void afficherTab(table_langue tab){
 
 table_langue init_tab_lettre_langue() {
 
-	FILE F;
+	//FILE F;
 	DIR *rep = opendir("corpus");         // ouverture du repertoir corpus
 
 	table_langue tab = initTab(rep);	  // initialisation de la table
@@ -113,7 +113,7 @@ table_langue init_tab_lettre_langue() {
 		fichierLu = readdir(rep); // ..
 		fichierLu = readdir(rep); // premier fichier de langue
 		int j,i =0;
-		double nb_l;
+		double nb_lettres_total;
 		
 		while (fichierLu != NULL) {
 			char fichier[50] ="corpus/"; // rajouter / après corpus
@@ -151,7 +151,7 @@ table_langue init_tab_lettre_langue() {
 			// on calcule P(wi|l)
 		
 			for (j=0;j<NB_LETTRES;j++){
-				tab.tab_lettre_langue[j][i] = (tab.tab_lettre_langue[j][i]) / nb_l;
+				tab.tab_lettre_langue[j][i] = (tab.tab_lettre_langue[j][i]) / nb_lettres_total;
 			}
 		
 			fclose(f);
@@ -168,8 +168,6 @@ table_langue init_tab_lettre_langue() {
 		for (i=0; i<NB_LETTRES; i++){
 
 			for (j=0; j<tab.nb_langues; j++) {
-
-				//printf("%f \n",(tab.tab_lettre_langue[i][j] * PL) / Pwi);
 				tab.tab_langue_lettre[i][j] = ((tab.tab_lettre_langue[i][j] * invPwi) / invPL) ; 
 			}
 		}

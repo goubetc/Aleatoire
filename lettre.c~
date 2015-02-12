@@ -113,11 +113,12 @@ table_langue init_tab_lettre_langue() {
 		fichierLu = readdir(rep); // ..
 		fichierLu = readdir(rep); // premier fichier de langue
 		int j,i =0;
-		double nb_l;
+		int nb_l;
 		
 		while (fichierLu != NULL) {
 			char fichier[50] ="corpus/"; // rajouter / après corpus
 			char *nomfichier= fichierLu->d_name;
+			printf("%s\n",nomfichier);
 			tab.indice_langue[i] = malloc(sizeof(nomfichier));
 			strcpy(tab.indice_langue[i], nomfichier);
 
@@ -125,33 +126,35 @@ table_langue init_tab_lettre_langue() {
 			int k=0;
 			while (tab.indice_langue[i][k] != '.') k++;
 			tab.indice_langue[i][k] = '\0';
-			nb_lettres_total=0;
+			nb_l =0;
 			
 			strcat(fichier, nomfichier);
 			f = fopen(fichier,"r");
+			printf("%s\n", fichier);
 			if (f == NULL) printf("Erreur ouverture fichier %s\n", nomfichier);
 			fscanf(f,"%c", &lettre);
+			//lettre = fgetc(f);
+			printf("langue n°%d \n",i);
 			while (lettre != EOF){
 			
 				if (lettre <= 'z' && lettre>='a'){
 					int id_lettre = lettre - 'a';
-					tab.tab_lettre_langue[id_lettre][i]++;
-					nb_lettres_total++;	
+					tab.tab_lettre_langue[id_lettre][i]++;	
 				}
 				else if(lettre <= 'Z' && lettre>='A'){
 					int id_lettre = lettre - 'A';
 					tab.tab_lettre_langue[id_lettre][i]++;	
-					nb_lettres_total++;
 				}
 				lettre = fgetc(f);	
-							
+				nb_l++;			
 			}
+			
 			// lissage
-			nb_lettres_total+= NB_LETTRES;
+			nb_l += NB_LETTRES;
 			// on calcule P(wi|l)
 		
 			for (j=0;j<NB_LETTRES;j++){
-				tab.tab_lettre_langue[j][i] = (tab.tab_lettre_langue[j][i]) / nb_l;
+				tab.tab_lettre_langue[j][i] = tab.tab_lettre_langue[j][i] / nb_l;
 			}
 		
 			fclose(f);
@@ -170,7 +173,7 @@ table_langue init_tab_lettre_langue() {
 			for (j=0; j<tab.nb_langues; j++) {
 
 				//printf("%f \n",(tab.tab_lettre_langue[i][j] * PL) / Pwi);
-				tab.tab_langue_lettre[i][j] = ((tab.tab_lettre_langue[i][j] * invPwi) / invPL) ; 
+				tab.tab_langue_lettre[i][j] = (tab.tab_lettre_langue[i][j] / invPL) * invPwi; 
 			}
 		}
 		
@@ -182,19 +185,11 @@ table_langue init_tab_lettre_langue() {
 }
 
 double p_lettre_langue(char l, int langue, table_langue tab) {
-	if ((l >= 'a')&&(l<='z'))
-		return tab.tab_lettre_langue[l - 'a'][langue];
-	else if ((l>= 'A') && (l<='Z'))
-		return tab.tab_lettre_langue[l - 'A'][langue];
-	else exit(0);
+	return tab.tab_lettre_langue[l - 'a'][langue];
 }
 
 double p_langue_lettre(char l, int langue, table_langue tab) {
-	if ((l >= 'a')&&(l<='z'))
-		return tab.tab_langue_lettre[l - 'a'][langue];
-	else if ((l>= 'A') && (l<='Z')) 
-		return tab.tab_langue_lettre[l - 'A'][langue];
-	else exit(0);
+	return tab.tab_langue_lettre[l - 'a'][langue];
 }
 
 char *nom_langue(int l, table_langue tab){

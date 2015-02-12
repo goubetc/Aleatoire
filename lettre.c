@@ -94,8 +94,13 @@ void afficherTab(table_langue tab){
 
 table_langue init_tab_lettre_langue() {
 
+<<<<<<< HEAD
 //	FILE F;
     DIR *rep = opendir("corpus");         // ouverture du repertoire corpus
+=======
+	//FILE F;
+	DIR *rep = opendir("corpus");         // ouverture du repertoir corpus
+>>>>>>> 8e44182b4d17af775e2b5f1e93d2305779cd76fe
 
 	table_langue tab = initTab(rep);	  // initialisation de la table
 	printf("nb langues = %d\n", tab.nb_langues);
@@ -113,7 +118,11 @@ table_langue init_tab_lettre_langue() {
 		fichierLu = readdir(rep); // ..
 		fichierLu = readdir(rep); // premier fichier de langue
 		int j,i =0;
+<<<<<<< HEAD
         double nb_lettres_total;
+=======
+		double nb_lettres_total;
+>>>>>>> 8e44182b4d17af775e2b5f1e93d2305779cd76fe
 		
 		while (fichierLu != NULL) {
             char fichier[50] ="corpus/"; // rajouter / après corpus
@@ -152,7 +161,11 @@ table_langue init_tab_lettre_langue() {
 			// on calcule P(wi|l)
 		
 			for (j=0;j<NB_LETTRES;j++){
+<<<<<<< HEAD
                 tab.tab_lettre_langue[j][i] = (tab.tab_lettre_langue[j][i]) / nb_lettres_total;
+=======
+				tab.tab_lettre_langue[j][i] = (tab.tab_lettre_langue[j][i]) / nb_lettres_total;
+>>>>>>> 8e44182b4d17af775e2b5f1e93d2305779cd76fe
 			}
 		
 			fclose(f);
@@ -168,7 +181,11 @@ table_langue init_tab_lettre_langue() {
 		
 		for (i=0; i<NB_LETTRES; i++){
 
+<<<<<<< HEAD
             for (j=0; j<tab.nb_langues; j++) {
+=======
+			for (j=0; j<tab.nb_langues; j++) {
+>>>>>>> 8e44182b4d17af775e2b5f1e93d2305779cd76fe
 				tab.tab_langue_lettre[i][j] = ((tab.tab_lettre_langue[i][j] * invPwi) / invPL) ; 
 			}
 		}

@@ -57,12 +57,12 @@ int main(int argc, char** argv) {
 						if (c == 'l') { // calcul de P(l/w)
 							p_langue_mot(w, res, tab_proba);
 							for (i=0; i<tab_proba.nb_langues; i++) { 
-								printf("\t P(%s | %s) = %f \n", nom_langue(i, tab_proba), w, res[i]);
+								printf("\t P(%s | %s) = %.2e \n", nom_langue(i, tab_proba), w, res[i]);
 							}
 						} else { // calcul de P(w/l)
 							p_mot_langue(w, res, tab_proba);
 							for (i=0; i<tab_proba.nb_langues; i++) { 
-								printf("\t P(%s | %s) = %e \n", w, nom_langue(i, tab_proba), res[i]);
+								printf("\t P(%s | %s) = %.2e \n", w, nom_langue(i, tab_proba), res[i]);
 							}
 						}
 						scanf("%c", &c); // pour éviter le \n

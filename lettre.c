@@ -94,8 +94,8 @@ void afficherTab(table_langue tab){
 
 table_langue init_tab_lettre_langue() {
 
-	FILE F;
-	DIR *rep = opendir("corpus");         // ouverture du repertoir corpus
+//	FILE F;
+    DIR *rep = opendir("corpus");         // ouverture du repertoire corpus
 
 	table_langue tab = initTab(rep);	  // initialisation de la table
 	printf("nb langues = %d\n", tab.nb_langues);
@@ -113,11 +113,11 @@ table_langue init_tab_lettre_langue() {
 		fichierLu = readdir(rep); // ..
 		fichierLu = readdir(rep); // premier fichier de langue
 		int j,i =0;
-		double nb_l;
+        double nb_lettres_total;
 		
 		while (fichierLu != NULL) {
-			char fichier[50] ="corpus/"; // rajouter / après corpus
-			char *nomfichier= fichierLu->d_name;
+            char fichier[50] ="corpus/"; // rajouter / après corpus
+            char *nomfichier= fichierLu->d_name;
 			tab.indice_langue[i] = malloc(sizeof(nomfichier));
 			strcpy(tab.indice_langue[i], nomfichier);
 
@@ -127,7 +127,8 @@ table_langue init_tab_lettre_langue() {
 			tab.indice_langue[i][k] = '\0';
 			nb_lettres_total=0;
 			
-			strcat(fichier, nomfichier);
+            strcat(fichier, nomfichier);
+            printf("%s\n",fichier);
 			f = fopen(fichier,"r");
 			if (f == NULL) printf("Erreur ouverture fichier %s\n", nomfichier);
 			fscanf(f,"%c", &lettre);
@@ -151,7 +152,7 @@ table_langue init_tab_lettre_langue() {
 			// on calcule P(wi|l)
 		
 			for (j=0;j<NB_LETTRES;j++){
-				tab.tab_lettre_langue[j][i] = (tab.tab_lettre_langue[j][i]) / nb_l;
+                tab.tab_lettre_langue[j][i] = (tab.tab_lettre_langue[j][i]) / nb_lettres_total;
 			}
 		
 			fclose(f);
@@ -160,16 +161,14 @@ table_langue init_tab_lettre_langue() {
 		}
 		
 				
-		// on remplie P(l|wi)
+        // on remplit P(l|wi)
 		
 		double invPL = tab.nb_langues;
 		double invPwi = NB_LETTRES;
 		
 		for (i=0; i<NB_LETTRES; i++){
 
-			for (j=0; j<tab.nb_langues; j++) {
-
-				//printf("%f \n",(tab.tab_lettre_langue[i][j] * PL) / Pwi);
+            for (j=0; j<tab.nb_langues; j++) {
 				tab.tab_langue_lettre[i][j] = ((tab.tab_lettre_langue[i][j] * invPwi) / invPL) ; 
 			}
 		}
